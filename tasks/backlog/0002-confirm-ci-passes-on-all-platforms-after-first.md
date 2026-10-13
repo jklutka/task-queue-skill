@@ -19,11 +19,12 @@ The GitHub Actions matrix (Linux, macOS, Windows x Python 3.10, 3.13) passes on 
 .github/workflows/test.yml. Tests so far ran locally on Windows with Python 3.14 only, including the PowerShell shim and the sh Stop hook.
 
 ## Done when
-- [ ] Workflow ran on main
-- [ ] All six jobs green, or failures fixed in plugins/task-queue/skills/task-queue/ and tests/
+- [x] Workflow ran on main
+- [x] All six jobs green, or failures fixed in plugins/task-queue/skills/task-queue/ and tests/
 
 ## Out of scope
 New features; changes to the spec.
 
 ## Log
 - 2026-10-13 09:29 claude: created in backlog
+- 2026-10-13 12:18 claude: run 38428919367 on fc4656f passed all six jobs (Linux, macOS, Windows x Python 3.10, 3.13)
