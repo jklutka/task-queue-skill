@@ -1,0 +1,13 @@
+{
+  "name": "task-queue",
+  "displayName": "Task Queue",
+  "version": "1.0.0",
+  "description": "Install, upgrade and true up a tasks/ folder task queue: one Markdown file per task, the folder is its state, shared by Claude Code and Codex.",
+  "author": {
+    "name": "Justin Klutka"
+  },
+  "homepage": "https://github.com/jklutka/task-queue-skill",
+  "repository": "https://github.com/jklutka/task-queue-skill",
+  "license": "MIT",
+  "keywords": ["tasks", "task-queue", "agents-md", "planning", "codex"]
+}

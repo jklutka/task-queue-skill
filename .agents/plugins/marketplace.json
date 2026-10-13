@@ -1,0 +1,20 @@
+{
+  "name": "task-queue-skill",
+  "interface": {
+    "displayName": "Task Queue"
+  },
+  "plugins": [
+    {
+      "name": "task-queue",
+      "source": {
+        "source": "local",
+        "path": "./plugins/task-queue"
+      },
+      "policy": {
+        "installation": "AVAILABLE",
+        "authentication": "ON_INSTALL"
+      },
+      "category": "Productivity"
+    }
+  ]
+}

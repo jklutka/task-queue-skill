@@ -249,25 +249,34 @@ folder inside it is what gets installed into your user-level skills folder.
 
 ```
 task-queue-skill/
-  docs/spec.md                    this spec, exported
-  skill/task-queue/
-    SKILL.md                      triggers and the setup, upgrade, true-up steps
-    VERSION                       current pattern version, e.g. 1
-    scripts/install.py            mechanical setup and upgrade steps
-    assets/
-      tasks/README.md             agent-facing rules
-      tasks/_template.md
-      scripts/tasks.py            the CLI
-      scripts/tasks               shell shim
-      scripts/tasks.cmd           Windows shim
-      agents-section.md           the AGENTS.md section, with markers
-      hooks/claude-stop-validate.json  the optional Claude Code Stop hook fragment
-      hooks/codex-stop-validate.json   the optional Codex Stop hook fragment
-  tests/                          CLI tests and skill install tests
-  tasks/                          this repo's own queue, used while building it
+  .claude-plugin/marketplace.json    Claude Code plugin marketplace
+  .agents/plugins/marketplace.json   Codex plugin marketplace
+  docs/spec.md                       this spec, exported
+  plugins/task-queue/                the plugin
+    .claude-plugin/plugin.json       Claude Code plugin manifest
+    plugin.json                      Codex plugin manifest
+    skills/task-queue/               the skill
+      SKILL.md                       triggers and the setup, upgrade, true-up steps
+      VERSION                        current pattern version, e.g. 1
+      scripts/install.py             mechanical setup and upgrade steps
+      assets/
+        tasks/README.md              agent-facing rules
+        tasks/_template.md
+        scripts/tasks.py             the CLI
+        scripts/tasks                shell shim
+        scripts/tasks.cmd            Windows shim
+        agents-section.md            the AGENTS.md section, with markers
+        hooks/claude-stop-validate.json  the optional Claude Code Stop hook fragment
+        hooks/codex-stop-validate.json   the optional Codex Stop hook fragment
+  tests/                             CLI, skill install and plugin tests
+  tasks/                             this repo's own queue, used while building it
 ```
 
-Install by linking `skill/task-queue/` into the user-level skills folder
+The repo is a plugin marketplace for Claude Code (`.claude-plugin/marketplace.json`)
+and Codex (`.agents/plugins/marketplace.json`) listing one plugin, `task-queue`,
+which holds the skill. Plugin-level hooks are deliberately absent: the Stop hook
+is per project and is added by `install.py`. Without a plugin manager, install by
+linking `plugins/task-queue/skills/task-queue/` into the user-level skills folder
 (`~/.claude/skills/` for Claude Code, `~/.agents/skills/` for Codex), so pulling
 the repo upgrades the installed skill. The skill follows the open Agent Skills
 format (agentskills.io): runnable code in `scripts/`, copied files in

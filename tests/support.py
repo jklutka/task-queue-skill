@@ -13,7 +13,8 @@ import unittest
 from pathlib import Path
 
 REPO = Path(__file__).resolve().parents[1]
-SKILL = REPO / "skill" / "task-queue"
+PLUGIN = REPO / "plugins" / "task-queue"
+SKILL = PLUGIN / "skills" / "task-queue"
 ASSETS = SKILL / "assets"
 CLI = ASSETS / "scripts" / "tasks.py"
 INSTALL = SKILL / "scripts" / "install.py"

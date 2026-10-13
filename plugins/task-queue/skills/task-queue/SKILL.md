@@ -77,5 +77,7 @@ not commit.
 Bump `VERSION`, `metadata.version` above, the `<!-- task-queue vN -->` line in
 `assets/tasks/README.md` and in `README_MD` inside `assets/scripts/tasks.py`,
 `__version__` in `assets/scripts/tasks.py`, and the start marker in
-`assets/agents-section.md`, all together. Then run the tests and re-run this
-skill in each project.
+`assets/agents-section.md`, all together, and set `version` to `N.0.0` in both
+plugin manifests (`plugin.json` and `.claude-plugin/plugin.json` in the plugin
+folder above `skills/`). Then run the tests and re-run this skill in each
+project.

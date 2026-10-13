@@ -1,0 +1,14 @@
+{
+  "name": "task-queue-skill",
+  "description": "A file-based task queue for coding agents",
+  "owner": {
+    "name": "Justin Klutka"
+  },
+  "plugins": [
+    {
+      "name": "task-queue",
+      "source": "./plugins/task-queue",
+      "description": "Install, upgrade and true up a tasks/ folder task queue shared by Claude Code and Codex"
+    }
+  ]
+}

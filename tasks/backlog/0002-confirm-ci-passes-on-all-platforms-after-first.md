@@ -20,7 +20,7 @@ The GitHub Actions matrix (Linux, macOS, Windows x Python 3.10, 3.13) passes on 
 
 ## Done when
 - [ ] Workflow ran on main
-- [ ] All six jobs green, or failures fixed in skill/task-queue/ and tests/
+- [ ] All six jobs green, or failures fixed in plugins/task-queue/skills/task-queue/ and tests/
 
 ## Out of scope
 New features; changes to the spec.

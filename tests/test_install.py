@@ -11,7 +11,7 @@ import sys
 import unittest
 from pathlib import Path
 
-from support import ASSETS, INSTALL, SKILL, STATES, TempProject, run, tree
+from support import ASSETS, INSTALL, REPO, SKILL, STATES, TempProject, run, tree
 
 SECTION = (ASSETS / "agents-section.md").read_text(encoding="utf-8").strip()
 
@@ -335,7 +335,7 @@ class ConsistencyTests(unittest.TestCase):
 
     def test_repo_installed_copy_is_current(self):
         """This repo dogfoods the skill; its installed copy must match the assets."""
-        repo = SKILL.parents[1]
+        repo = REPO
         for name in ("tasks.py", "tasks", "tasks.cmd"):
             self.assertEqual((repo / "scripts" / name).read_bytes(),
                              (ASSETS / "scripts" / name).read_bytes(), f"scripts/{name}")

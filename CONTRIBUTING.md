@@ -12,9 +12,9 @@ pull requests are all welcome.
 - **The spec is the contract.** Behavior is defined in [docs/spec.md](docs/spec.md).
   If a change alters behavior, update the spec in the same pull request.
 - **Edit the source, not the installed copy.** Everything shipped lives in
-  `skill/task-queue/`. The repo-root `scripts/`, `tasks/README.md` and
+  `plugins/task-queue/skills/task-queue/`. The repo-root `scripts/`, `tasks/README.md` and
   `tasks/_template.md` are an installed copy. Refresh them with
-  `python skill/task-queue/scripts/install.py --project .`
+  `python plugins/task-queue/skills/task-queue/scripts/install.py --project .`
 - **Keep embedded files in sync.** `assets/tasks/README.md` and
   `assets/tasks/_template.md` are also embedded in `assets/scripts/tasks.py`
   (`README_MD` and `TEMPLATE_MD`). A test fails if they differ.
@@ -34,7 +34,9 @@ Python 3.10 and 3.13.
 Projects upgrade when the bundled version is newer than the installed one. To
 release:
 
-1. Bump `skill/task-queue/VERSION`.
+1. Bump `plugins/task-queue/skills/task-queue/VERSION`, and the `version` in both
+   plugin manifests (`plugins/task-queue/plugin.json` and
+   `plugins/task-queue/.claude-plugin/plugin.json`) to `N.0.0`.
 2. Update the matching markers: `metadata.version` in `SKILL.md`, the first line of
    `assets/tasks/README.md` and of
    `README_MD` in `assets/scripts/tasks.py`, `__version__` in

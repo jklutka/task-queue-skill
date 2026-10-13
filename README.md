@@ -81,7 +81,7 @@ git clone https://github.com/jklutka/task-queue-skill.git
 cd task-queue-skill
 
 # Install the queue into one of your projects
-python skill/task-queue/scripts/install.py --project ../my-project
+python plugins/task-queue/skills/task-queue/scripts/install.py --project ../my-project
 
 cd ../my-project
 scripts/tasks new "Add retry with backoff to the sync job" --agent claude --priority p1
@@ -95,36 +95,51 @@ same in PowerShell, cmd, WSL, Linux and macOS.
 
 Requirements: Python 3.10 or newer. Nothing else.
 
-Link the skill folder into your user-level skills folder rather than copying
-it, so that a `git pull` of this repo upgrades the installed skill.
+This repository is a plugin marketplace for both Claude Code and Codex. The
+`task-queue` plugin contains a single skill in the open
+[Agent Skills](https://agentskills.io/specification) format.
 
-The skill follows the open [Agent Skills](https://agentskills.io/specification)
-format, so the same folder works in Claude Code and Codex. Only the skills
-folder differs:
-
-| Agent | Skills folder |
-| ----- | ------------- |
-| Claude Code | `~/.claude/skills/` |
-| Codex | `~/.agents/skills/` |
-
-**Linux, macOS or WSL:**
+### Claude Code
 
 ```bash
-ln -s "$PWD/skill/task-queue" ~/.claude/skills/task-queue   # Claude Code
-ln -s "$PWD/skill/task-queue" ~/.agents/skills/task-queue   # Codex
+claude plugin marketplace add jklutka/task-queue-skill
+claude plugin install task-queue@task-queue-skill
 ```
 
-**Windows** (PowerShell; a junction needs no admin rights):
+Inside a session, `/plugin marketplace add jklutka/task-queue-skill` does the
+same. The skill then appears as `task-queue:task-queue`.
+
+### Codex
+
+```bash
+codex plugin marketplace add jklutka/task-queue-skill
+```
+
+Then open `/plugins` in Codex and install **Task Queue**. Codex also accepts an
+HTTPS or SSH URL (`git@github.com:jklutka/task-queue-skill.git`), and
+`--ref <tag>` pins a version.
+
+### Without a plugin manager
+
+Link the skill folder into your user-level skills folder. Linking instead of
+copying means a `git pull` of this repo upgrades the skill. Create the skills
+folder first if it doesn't exist yet.
+
+```bash
+ln -s "$PWD/plugins/task-queue/skills/task-queue" ~/.claude/skills/task-queue   # Claude Code
+ln -s "$PWD/plugins/task-queue/skills/task-queue" ~/.agents/skills/task-queue   # Codex
+```
+
+On Windows (PowerShell; a junction needs no admin rights):
 
 ```powershell
-New-Item -ItemType Junction -Path "$HOME\.claude\skills\task-queue" -Target "$PWD\skill\task-queue"   # Claude Code
-New-Item -ItemType Junction -Path "$HOME\.agents\skills\task-queue" -Target "$PWD\skill\task-queue"   # Codex
+New-Item -ItemType Junction -Path "$HOME\.claude\skills\task-queue" -Target "$PWD\plugins\task-queue\skills\task-queue"   # Claude Code
+New-Item -ItemType Junction -Path "$HOME\.agents\skills\task-queue" -Target "$PWD\plugins\task-queue\skills\task-queue"   # Codex
 ```
 
-Create the skills folder first if it doesn't exist yet. Other agents that
-support Agent Skills work the same way. The helper and the `AGENTS.md`
-instructions work for any agent that can run a shell command, even without
-skill support.
+Use either the plugin or the link, not both, or the agent will list the skill
+twice. The helper and the `AGENTS.md` instructions also work with agents that
+don't support skills, as long as they can run a shell command.
 
 ## Setting up a project
 
@@ -132,7 +147,7 @@ Once the skill is installed, ask your agent:
 
 > Set up the task queue in this project.
 
-The skill runs [`scripts/install.py`](skill/task-queue/scripts/install.py), which does the
+The skill runs [`scripts/install.py`](plugins/task-queue/skills/task-queue/scripts/install.py), which does the
 following in order:
 
 1. **Checks for conflicts.** If `tasks/` or `scripts/tasks*` already exist and
@@ -163,7 +178,7 @@ You can run the installer directly too:
 | `... --codex-hook` | Also merges the Stop hook into `.codex/hooks.json` |
 | `... --adopt` | Replaces unmarked `tasks/README.md` and `scripts/tasks*` after you agree; task files are never touched |
 
-Run these from the skill folder (`skill/task-queue/`), or give the full path to
+Run these from the skill folder (`plugins/task-queue/skills/task-queue/`), or give the full path to
 `install.py`.
 
 Exit codes: `0` success or up to date, `1` error, failed validation or (with
@@ -289,8 +304,11 @@ them. Run `/hooks` in Codex once after installing the hook.
 
 Every installed copy carries a version marker in three places: the `AGENTS.md`
 start marker, the first line of `tasks/README.md` and `__version__` in
-`scripts/tasks.py`. To upgrade, `git pull` this repo and ask the agent to
-upgrade the task queue (or re-run `install.py`). The upgrade replaces only the
+`scripts/tasks.py`. To upgrade, update the plugin first: in Claude Code, run
+`claude plugin marketplace update task-queue-skill`, then
+`claude plugin update task-queue@task-queue-skill`; in Codex, update it from
+`/plugins`; for a linked install, `git pull` this repo. Then ask the agent to
+upgrade the task queue in each project (or re-run `install.py`). The upgrade replaces only the
 marked `AGENTS.md` section, the README, the template and the helper. Your task
 files are never touched, and running the installer again changes nothing.
 
@@ -315,18 +333,23 @@ scheduling and automatic cross-review.
 ```
 task-queue-skill/
 ├── docs/spec.md                     full feature specification
-├── skill/task-queue/                the skill: link this folder into your skills folder
-│   ├── SKILL.md                     triggers and setup, upgrade and true-up steps
-│   ├── VERSION                      current pattern version
-│   ├── scripts/install.py           mechanical install and upgrade
-│   └── assets/                      copied into projects verbatim
-│       ├── tasks/README.md          agent-facing rules
-│       ├── tasks/_template.md
-│       ├── scripts/tasks.py         the helper
-│       ├── scripts/tasks            sh shim
-│       ├── scripts/tasks.cmd        Windows shim
-│       ├── agents-section.md        the AGENTS.md section
-│       └── hooks/                   optional Stop hooks for Claude Code and Codex
+├── .claude-plugin/marketplace.json  Claude Code marketplace
+├── .agents/plugins/marketplace.json Codex marketplace
+├── plugins/task-queue/              the plugin
+│   ├── .claude-plugin/plugin.json   Claude Code manifest
+│   ├── plugin.json                  Codex manifest
+│   └── skills/task-queue/           the skill: link this folder for a manual install
+│       ├── SKILL.md                 triggers and setup, upgrade and true-up steps
+│       ├── VERSION                  current pattern version
+│       ├── scripts/install.py       mechanical install and upgrade
+│       └── assets/                  copied into projects verbatim
+│           ├── tasks/README.md      agent-facing rules
+│           ├── tasks/_template.md
+│           ├── scripts/tasks.py     the helper
+│           ├── scripts/tasks        sh shim
+│           ├── scripts/tasks.cmd    Windows shim
+│           ├── agents-section.md    the AGENTS.md section
+│           └── hooks/               optional Stop hooks for Claude Code and Codex
 ├── tests/                           unittest suite, one test per acceptance criterion
 └── tasks/, scripts/, AGENTS.md, CLAUDE.md
                                      this repo's own queue, installed with the skill

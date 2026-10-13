@@ -2,10 +2,10 @@
 
 This repo builds the `task-queue` skill (spec: docs/spec.md).
 
-- The source of truth is `skill/task-queue/`. `scripts/`, `tasks/README.md` and
+- The source of truth is `plugins/task-queue/skills/task-queue/`. `scripts/`, `tasks/README.md` and
   `tasks/_template.md` at the repo root are an installed copy; never edit them.
-  Change `skill/task-queue/assets/` and re-run
-  `python skill/task-queue/scripts/install.py --project .` instead.
+  Change `plugins/task-queue/skills/task-queue/assets/` and re-run
+  `python plugins/task-queue/skills/task-queue/scripts/install.py --project .` instead.
 - `tasks/README.md` and `tasks/_template.md` are also embedded in
   `assets/scripts/tasks.py` (`README_MD`, `TEMPLATE_MD`); keep them identical.
 - Run `python -m unittest discover -s tests` before finishing; it must pass.

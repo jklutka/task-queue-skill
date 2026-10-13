@@ -1,0 +1,14 @@
+{
+  "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
+  "name": "task-queue",
+  "version": "1.0.0",
+  "description": "Install, upgrade and true up a tasks/ folder task queue: one Markdown file per task, the folder is its state, shared by Claude Code and Codex.",
+  "extensions": {
+    "com.openai": {
+      "interface": {
+        "displayName": "Task Queue",
+        "category": "Productivity"
+      }
+    }
+  }
+}
