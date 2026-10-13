@@ -1,0 +1,15 @@
+# Changelog
+
+All notable changes are recorded here. The pattern version is the number in
+`skill/task-queue/VERSION`; installed projects carry it in their version markers.
+
+## v1 — 2026-10-13
+
+First release.
+
+- `tasks/` queue: six state folders, the task file format and the allowed transitions
+- `tasks` helper with `init`, `new`, `move`, `list`, `next` and `validate`, plus sh and Windows shims
+- `task-queue` skill: conflict-safe install and upgrade, `AGENTS.md` section, `CLAUDE.md` import
+- Optional Stop hook that runs `tasks validate`, for Claude Code (`.claude/settings.json`) and Codex (`.codex/hooks.json`)
+- Skill follows the Agent Skills format and installs in Claude Code (`~/.claude/skills`) and Codex (`~/.agents/skills`)
+- Test suite covering every acceptance criterion in the spec

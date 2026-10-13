@@ -1,0 +1,11 @@
+#!/bin/sh
+# task-queue shim: runs tasks.py next to this file with the first Python 3.10+ found.
+here=$(CDPATH= cd -- "$(dirname -- "$0")" && pwd)
+for py in python3 python py; do
+  if command -v "$py" >/dev/null 2>&1 &&
+    "$py" -c 'import sys; sys.exit(sys.version_info < (3, 10))' </dev/null >/dev/null 2>&1; then
+    exec "$py" "$here/tasks.py" "$@"
+  fi
+done
+echo "tasks: Python 3.10+ not found (tried python3, python, py)" >&2
+exit 127

@@ -1,0 +1,16 @@
+{
+  "hooks": {
+    "Stop": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "sh \"$(git rev-parse --show-toplevel 2>/dev/null || pwd)/scripts/tasks\" validate --hook",
+            "commandWindows": ".\\scripts\\tasks.cmd validate --hook",
+            "timeout": 60
+          }
+        ]
+      }
+    ]
+  }
+}
