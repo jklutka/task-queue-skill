@@ -8,8 +8,8 @@ depends_on: []
 model: default
 created: 2026-10-13
 claimed_by: claude
-started: 2026-10-13T18:35:54-04:00
-attempts: 2
+started: 2026-10-13T18:37:09-04:00
+attempts: 3
 ---
 
 ## Goal
@@ -21,7 +21,7 @@ Both plugin marketplaces are confirmed to validate and install from the publishe
 ## Done when
 - [x] `claude plugin validate .` passes (no warnings with --strict, or warnings understood)
 - [x] `claude plugin marketplace add jklutka/task-queue-skill` and `claude plugin install task-queue@task-queue-skill` work; the skill sets up a test project
-- [x] `codex plugin marketplace add git@github.com:jklutka/task-queue-skill.git` works and the plugin installs from /plugins
+- [x] `codex plugin marketplace add jklutka/task-queue-skill` works and the plugin installs (SSH form needs a GitHub SSH key)
 - [x] README install steps corrected for anything that differed
 
 ## Out of scope
@@ -39,3 +39,9 @@ The skill's behavior; the task file format.
 - 2026-10-13 18:35 human: blocked -> ready: Justin confirmed the Codex marketplace add and plugin install work
 - 2026-10-13 18:35 claude: ready -> in-progress
 - 2026-10-13 18:35 claude: in-progress -> review: All four checks done: Claude Code validate and install, Codex marketplace and install (confirmed by Justin), README fixed
+- 2026-10-13 18:37 human: review -> ready: Justin: Codex marketplace add over SSH failed (git@github.com: Permission denied (publickey)); the earlier confirmation was premature
+- 2026-10-13 18:37 claude: ready -> in-progress
+- 2026-10-13 18:38 claude: codex plugin marketplace add jklutka/task-queue-skill (HTTPS) worked in codex-cli 0.162.1; the SSH form failed only because this machine has no GitHub SSH key
+- 2026-10-13 18:38 claude: codex plugin add task-queue@task-queue-skill: installed, enabled, 1.0.0; cached skill is identical to the repo
+- 2026-10-13 18:38 claude: README: Codex section adds codex plugin add and explains the SSH key requirement
+- 2026-10-13 18:38 claude: in-progress -> review: All four checks done; Codex verified over HTTPS from this machine

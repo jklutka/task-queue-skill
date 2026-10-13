@@ -118,11 +118,14 @@ user PATH and open a new terminal.
 
 ```bash
 codex plugin marketplace add jklutka/task-queue-skill
+codex plugin add task-queue@task-queue-skill
 ```
 
-Then open `/plugins` in Codex and install **Task Queue**. Codex also accepts an
-HTTPS or SSH URL (`git@github.com:jklutka/task-queue-skill.git`), and
-`--ref <tag>` pins a version.
+Or install **Task Queue** from `/plugins` inside Codex. The `owner/repo` form
+clones over HTTPS and needs no setup. Codex also accepts an SSH URL
+(`git@github.com:jklutka/task-queue-skill.git`), but only if you have an SSH
+key registered with GitHub; without one, it fails with
+`Permission denied (publickey)`. `--ref <tag>` pins a version.
 
 ### Without a plugin manager
 
