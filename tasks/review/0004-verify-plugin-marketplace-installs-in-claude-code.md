@@ -8,8 +8,8 @@ depends_on: []
 model: default
 created: 2026-10-13
 claimed_by: claude
-started: 2026-10-13T18:25:34-04:00
-attempts: 1
+started: 2026-10-13T18:35:54-04:00
+attempts: 2
 ---
 
 ## Goal
@@ -21,7 +21,7 @@ Both plugin marketplaces are confirmed to validate and install from the publishe
 ## Done when
 - [x] `claude plugin validate .` passes (no warnings with --strict, or warnings understood)
 - [x] `claude plugin marketplace add jklutka/task-queue-skill` and `claude plugin install task-queue@task-queue-skill` work; the skill sets up a test project
-- [ ] `codex plugin marketplace add git@github.com:jklutka/task-queue-skill.git` works and the plugin installs from /plugins
+- [x] `codex plugin marketplace add git@github.com:jklutka/task-queue-skill.git` works and the plugin installs from /plugins
 - [x] README install steps corrected for anything that differed
 
 ## Out of scope
@@ -36,3 +36,6 @@ The skill's behavior; the task file format.
 - 2026-10-13 18:26 claude: cached install.py set up a clean project (validate ok, second run no changes); the skill also triggered and ran its conflict check in another project. A headless agent-driven run was not possible: the claude CLI login has expired
 - 2026-10-13 18:26 claude: README: added installer link and the Windows PATH fix
 - 2026-10-13 18:27 claude: in-progress -> blocked: Codex check remains: needs the Codex CLI on this machine (codex plugin marketplace add, then install from /plugins). Claude Code checks are done.
+- 2026-10-13 18:35 human: blocked -> ready: Justin confirmed the Codex marketplace add and plugin install work
+- 2026-10-13 18:35 claude: ready -> in-progress
+- 2026-10-13 18:35 claude: in-progress -> review: All four checks done: Claude Code validate and install, Codex marketplace and install (confirmed by Justin), README fixed
