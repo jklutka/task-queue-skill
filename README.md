@@ -109,6 +109,11 @@ claude plugin install task-queue@task-queue-skill
 Inside a session, `/plugin marketplace add jklutka/task-queue-skill` does the
 same. The skill then appears as `task-queue:task-queue`.
 
+If you don't have the `claude` command yet, install it with the
+[official installer](https://code.claude.com/docs/en/setup). On Windows, if
+`claude` isn't recognized afterwards, add `%USERPROFILE%\.local\bin` to your
+user PATH and open a new terminal.
+
 ### Codex
 
 ```bash
